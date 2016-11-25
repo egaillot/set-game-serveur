@@ -35,11 +35,30 @@ describe("Le serveur", function () {
         done();
     });
   });
+
+  it("incrémente le score d'un joueur", function (done) {
+    idJoueurAppele = 0;
+    fauxScoreur.incrementeScore = function (idJoueur) {
+      idJoueurAppele = idJoueur;
+    };
+
+    request.post("http://localhost:1789/player/12345/score", function (err, res) {
+      expect(res.statusCode).to.equal(204);
+      expect(idJoueurAppele).to.equal("12345");
+      done();
+    });
+  });
 });
 
 describe("Le scoreur", function () {
   it("retourne 0 s'il ne connaît pas le joueur", function () {
     scoreur = SS.creeScoreur();
     expect(scoreur.score("inconnu")).to.equal("0");
+  });
+
+  it("maintient l'état des scores", function () {
+    scoreur = SS.creeScoreur();
+    scoreur.incrementeScore("12345");
+    expect(scoreur.score("12345")).to.equal("1");
   });
 });
