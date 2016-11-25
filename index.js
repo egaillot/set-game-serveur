@@ -1,7 +1,7 @@
 SS = require("./lib/setServeur");
 
 port = process.env.PORT || 3000;
-fauxScorer = { score: function () {return "0";} };
-SS.creeServeur(port, fauxScorer, function () {
+scoreur = SS.creeScoreur();
+SS.creeServeur(port, scoreur, function () {
   console.log("Listening on ", port);
 });

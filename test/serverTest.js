@@ -28,3 +28,10 @@ describe("Le serveur", function () {
     });
   });
 });
+
+describe("Le scoreur", function () {
+  it("retourne 0 s'il ne connaît pas le joueur", function () {
+    scoreur = SS.creeScoreur();
+    expect(scoreur.score("inconnu")).to.equal("0");
+  });
+});
